@@ -1,0 +1,20 @@
+name: request
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment a request that mentions the agent
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment "${{ github.event.issue.number }}" \
+            --repo "${{ github.repository }}" \
+            --body "@wangpengyu-123 The README heading reads 'agent-playground'; please correct the wording to 'Agent Playground'."
